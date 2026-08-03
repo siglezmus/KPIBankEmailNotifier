@@ -15,21 +15,16 @@ class EmailNotificationService(
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    private val sentTransfers = mutableSetOf<String>()
-
     fun sendTransferEmail(event: TransferSentEvent) {
 
         val transferId = event.data.transferId
 
-        if (sentTransfers.add("$transferId-sender")) {
-            sendSenderTransferEmail(event)
-        }
+        sendSenderTransferEmail(event)
 
         Thread.sleep(20000)
 
-        if (sentTransfers.add("$transferId-receiver")) {
-            sendReceiverTransferEmail(event)
-        }
+        sendReceiverTransferEmail(event)
+
     }
 
     private fun sendSenderTransferEmail(event: TransferSentEvent) {
