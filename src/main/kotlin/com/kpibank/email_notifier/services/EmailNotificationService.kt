@@ -17,35 +17,67 @@ class EmailNotificationService(
 
     fun sendTransferEmail(event: TransferSentEvent) {
 
-        val recipient = event.data.from.email
+        sendSenderTransferEmail(event)
 
-        logger.info(
-            "Sending transfer notification email. transferId={}, recipient={}, amount={} {}",
-            event.data.transferId,
-            recipient,
-            event.data.amount,
-            event.data.currency
-        )
+        sendReceiverTransferEmail(event)
+    }
+
+    private fun sendSenderTransferEmail(event: TransferSentEvent) {
+
+        val sender = event.data.from
 
         val message = SimpleMailMessage()
 
-        message.setTo(recipient)
+        message.setTo(sender.email)
         message.subject = "Transfer completed"
 
         message.text = """
-            Hello ${event.data.from.ownerName},
+        Hello ${sender.ownerName},
 
-            Your transfer of ${event.data.amount} ${event.data.currency}
-            to ${event.data.to.ownerName}
-            was completed.
+        Your transfer of ${event.data.amount} ${event.data.currency}
+        to ${event.data.to.ownerName}
+        was completed successfully.
 
-        """.trimIndent()
+        Transfer ID:
+        ${event.data.transferId}
+
+    """.trimIndent()
 
         mailSender.send(message)
 
         logger.info(
-            "Transfer notification email sent successfully. transferId={}",
-            event.data.transferId
+            "Sender transfer email sent. transferId={}, recipient={}",
+            event.data.transferId,
+            sender.email
+        )
+    }
+
+    private fun sendReceiverTransferEmail(event: TransferSentEvent) {
+
+        val receiver = event.data.to
+
+        val message = SimpleMailMessage()
+
+        message.setTo(receiver.email)
+        message.subject = "You received a transfer"
+
+        message.text = """
+        Hello ${receiver.ownerName},
+
+        You received ${event.data.amount} ${event.data.currency}
+        from ${event.data.from.ownerName}.
+
+        Transfer ID:
+        ${event.data.transferId}
+
+    """.trimIndent()
+
+        mailSender.send(message)
+
+        logger.info(
+            "Receiver transfer email sent. transferId={}, recipient={}",
+            event.data.transferId,
+            receiver.email
         )
     }
 
