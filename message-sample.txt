@@ -1,0 +1,23 @@
+{
+  "eventId": "8f2c6f88-4b7a-4b1d-a2c9-4d2e2d9c9a11",
+  "eventType": "TRANSFER_SENT",
+  "eventVersion": 1,
+  "occurredAt": "2026-08-03T12:20:00+02:00",
+  "producer": "bank-service",
+  "data": {
+    "transferId": "29b44779-cbd7-4cfe-a71f-a61adca9380e",
+    "from": {
+      "accountId": "2c91c99a-1bb0-4b8c-a8eb-a131db6f1f2b",
+      "ownerName": "John Sender",
+      "email": "sender@test.com"
+    },
+    "to": {
+      "accountId": "70b2e9fb-3822-49dd-acd1-9283f6cb97e3",
+      "ownerName": "Jane Receiver",
+      "email": "receiver@test.com"
+    },
+    "amount": 10.50,
+    "currency": "EUR",
+    "description": "Test transfer"
+  }
+}
