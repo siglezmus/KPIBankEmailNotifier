@@ -18,5 +18,6 @@ data class WithdrawalCompletedData(
     val account: AccountOwner,
     val destination: String,
     val amount: BigDecimal,
+    val balance: BigDecimal,
     val currency: String
 )

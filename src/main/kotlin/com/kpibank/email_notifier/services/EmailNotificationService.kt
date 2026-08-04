@@ -42,6 +42,8 @@ class EmailNotificationService(
         Your transfer of ${event.data.amount} ${event.data.currency}
         to ${event.data.to.ownerName}
         was completed successfully.
+        
+        New available balance: ${event.data.sourceBalance}
 
         Transfer ID:
         ${event.data.transferId}
@@ -71,7 +73,9 @@ class EmailNotificationService(
 
         You received ${event.data.amount} ${event.data.currency}
         from ${event.data.from.ownerName}.
-
+        
+        New available balance ${event.data.destinationBalance} ${event.data.currency}
+        
         Transfer ID:
         ${event.data.transferId}
 
@@ -109,7 +113,9 @@ class EmailNotificationService(
 
             ${event.data.amount} ${event.data.currency}
             has been deposited into your account.
-
+            
+            Available balance: ${event.data.balance} ${event.data.currency}
+            
             Source:
             ${event.data.source}
         """.trimIndent()
@@ -145,6 +151,8 @@ class EmailNotificationService(
 
             ${event.data.amount} ${event.data.currency}
             was withdrawn from your account.
+            
+            Available balance: ${event.data.balance} ${event.data.currency}
 
             Destination:
             ${event.data.destination}

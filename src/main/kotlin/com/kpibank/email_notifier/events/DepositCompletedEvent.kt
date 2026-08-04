@@ -18,5 +18,6 @@ data class DepositCompletedData(
     val account: AccountOwner,
     val source: String,
     val amount: BigDecimal,
+    val balance: BigDecimal,
     val currency: String
 )

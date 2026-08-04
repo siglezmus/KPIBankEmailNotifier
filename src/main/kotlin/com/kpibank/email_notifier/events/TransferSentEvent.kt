@@ -18,6 +18,8 @@ data class TransferSentData(
     val from: AccountOwner,
     val to: AccountOwner,
     val amount: BigDecimal,
+    val sourceBalance: BigDecimal,
+    val destinationBalance: BigDecimal,
     val currency: String,
     val description: String?
 )
